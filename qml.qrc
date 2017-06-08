@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>pictures/logo_2.png</file>
+        <file>LogIn.qml</file>
+        <file>LogInForm.ui.qml</file>
+    </qresource>
+</RCC>

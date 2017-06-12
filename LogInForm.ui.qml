@@ -12,6 +12,9 @@ Item {
     property alias signUpButtonMouseArea: signUpButtonMouseArea
     property alias logInButton: logInButton
     property alias columnLayout: columnLayout
+    property alias usernameField: usernameField
+    property alias passwordField: passwordField
+
 
     ColumnLayout {
         id: columnLayout

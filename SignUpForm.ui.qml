@@ -9,6 +9,11 @@ Item {
     anchors.right: parent.right
     anchors.left: parent.left
     anchors.top: parent.top
+    property alias logInButton: logInButton
+    property alias usernameField: usernameField
+    property alias passwordField: passwordField
+    property alias confirmPasswordField: confirmPasswordField
+    property alias confirmError: confirmError
 
     ColumnLayout {
         id: columnLayout
@@ -62,8 +67,6 @@ Item {
 
         Button {
             id: logInButton
-            x: 251
-            y: 134
             text: qsTr("Sign up")
             anchors.top: confirmPasswordField.bottom
             anchors.topMargin: 10
@@ -72,5 +75,21 @@ Item {
             anchors.left: columnLayout.left
             anchors.leftMargin: 100
         }
+        Text {
+            id: confirmError
+            text: qsTr("Password doesn`t be confirmed. Try again")
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 14
+            color: "red"
+            anchors.top: logInButton.bottom
+            anchors.topMargin: 20
+            anchors.right: columnLayout.right
+            anchors.rightMargin: 300
+            anchors.left: columnLayout.left
+            anchors.leftMargin: 300
+            visible: false
+        }
     }
+
+
 }

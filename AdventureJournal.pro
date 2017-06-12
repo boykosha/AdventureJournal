@@ -1,7 +1,8 @@
 QT += qml quick quickcontrols2 sql
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    database.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,4 +39,6 @@ DISTFILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-HEADERS +=
+HEADERS += \
+    database.h
+

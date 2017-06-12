@@ -28,7 +28,9 @@ ApplicationWindow {
              stack.push(signUpView)
             }
             logInButton.onClicked: {
-                stack.push(mainMenuView)
+                if(!database.match(usernameField.text, passwordField.text)){
+                stack.push(mainMenuView)}
+                else{console.log("DURA")}
             }
            }
        }

@@ -5,5 +5,11 @@
         <file>pictures/logo_2.png</file>
         <file>LogIn.qml</file>
         <file>LogInForm.ui.qml</file>
+        <file>SignUp.qml</file>
+        <file>SignUpForm.ui.qml</file>
+        <file>MainMenu.qml</file>
+        <file>MainMenuForm.ui.qml</file>
+        <file>Logo.qml</file>
+        <file>pictures/paper.jpg</file>
     </qresource>
 </RCC>

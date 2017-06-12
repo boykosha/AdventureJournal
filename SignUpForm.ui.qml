@@ -4,14 +4,11 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 
 Item {
-    id: logInScene
+    id: signUpScene
     anchors.bottom: parent.bottom
     anchors.right: parent.right
     anchors.left: parent.left
     anchors.top: parent.top
-    property alias signUpButtonMouseArea: signUpButtonMouseArea
-    property alias logInButton: logInButton
-    property alias columnLayout: columnLayout
 
     ColumnLayout {
         id: columnLayout
@@ -49,38 +46,31 @@ Item {
             anchors.leftMargin: 25
         }
 
+        TextField {
+            id: confirmPasswordField
+            placeholderText: qsTr("Confirm password")
+            height: 60
+            font.pointSize: 14
+            echoMode: TextInput.Password
+            anchors.top: passwordField.bottom
+            anchors.topMargin: 10
+            anchors.right: columnLayout.right
+            anchors.rightMargin: 25
+            anchors.left: columnLayout.left
+            anchors.leftMargin: 25
+        }
+
         Button {
             id: logInButton
-            text: qsTr("Sign in")
-            anchors.top: passwordField.bottom
+            x: 251
+            y: 134
+            text: qsTr("Sign up")
+            anchors.top: confirmPasswordField.bottom
             anchors.topMargin: 10
             anchors.right: columnLayout.right
             anchors.rightMargin: 100
             anchors.left: columnLayout.left
             anchors.leftMargin: 100
-        }
-
-        Button {
-            id: signUpButton
-            text: qsTr("Sign up")
-            anchors.top: logInButton.bottom
-            anchors.topMargin: 50
-            anchors.right: columnLayout.right
-            anchors.rightMargin: 25
-            anchors.left: columnLayout.left
-            anchors.leftMargin: 25
-            background: Rectangle {
-                color: "#228B22"
-                radius: 4
-                MouseArea {
-                    id: signUpButtonMouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked: parent.color = "#32CD32"
-                    onEntered: parent.color = "#006400"
-                    onExited: parent.color = "#228B22"
-                }
-            }
         }
     }
 }

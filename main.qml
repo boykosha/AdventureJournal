@@ -8,8 +8,46 @@ ApplicationWindow {
     title: qsTr("Adventure Journal")
     Material.theme: Material.Dark
     Material.accent: Material.Blue
-    LogIn{}
+
+    Logo{
+        id:logo
+    }
+
+    StackView{
+        id: stack
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.top: logo.bottom
+        anchors.bottom: parent.bottom
+
+    }
+    Component {
+           id: logInView
+           LogIn{
+            signUpButtonMouseArea.onClicked: {
+             stack.push(signUpView)
+            }
+            logInButton.onClicked: {
+                stack.push(mainMenuView)
+            }
+           }
+       }
+
+       Component {
+            id: signUpView
+            SignUp{}
+
+
+       }
+       Component{
+        id: mainMenuView
+        MainMenu{}
+       }
+
+       Component.onCompleted: stack.push(logInView)
 }
+
+
 
 
 

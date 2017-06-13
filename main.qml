@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.1
 
 ApplicationWindow {
+    id: applicationWindow
     visible: true
     title: qsTr("Adventure Journal")
     Material.theme: Material.Dark
@@ -28,10 +29,10 @@ ApplicationWindow {
              stack.push(signUpView)
             }
             logInButton.onClicked: {
-                if(!database.match(usernameField.text, passwordField.text)){
-                stack.push(mainMenuView)}
-                else{console.log("DURA")}
-            }
+                //if(!database.match(usernameField.text, passwordField.text)){
+                stack.push(mainMenuView)//}
+               // else{console.log("DURA")}
+           }
            }
        }
 
@@ -43,10 +44,59 @@ ApplicationWindow {
        }
        Component{
         id: mainMenuView
-        MainMenu{}
+        MainMenu{
+            calendarButton.onClicked: {
+                stack.push(adventureView)
+            }
+            fotoButton.onClicked: {
+            }
+            mapButton.onClicked: {
+            }
+            checkButton.onClicked: {
+            }
+            changeButton.onClicked: {
+            }
+            signOutButton.onClicked: {
+                applicationWindow.close();
+            }
+        }
        }
+//       Component{
+//        id: adventureView
+//       }
+//       Component{
+//        id: galleryView
+//       }
+//       Component{
+//        id: mapView
+//       }
+//       Component{
+//        id: checkView
+//       }
+//       Component{
+//        id: checkView
+//       }
+//       Component{
+//        id: changeView
+//       }
 
-       Component.onCompleted: stack.push(logInView)
+         Component.onCompleted: stack.push(logInView)
+
+         Rectangle {
+            focus: true // important - otherwise we'll get no key events
+
+            Keys.onReleased: {
+                if (event.key == Qt.Key_Back) {
+                    if(!stack.pop()){
+                        applicationWindow.close();
+                    }
+                    else{
+                        stack.pop();
+                    }
+                    event.accepted = true;
+                }
+            }
+         }
 }
 
 

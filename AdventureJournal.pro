@@ -1,8 +1,9 @@
-QT += qml quick quickcontrols2 sql
+QT += qml quick quickcontrols2 sql location network positioning
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    database.cpp
+    database.cpp \
+    listmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -40,5 +41,7 @@ DISTFILES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
-    database.h
+    database.h \
+    listmodel.h \
+    listmodel.h
 

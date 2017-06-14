@@ -11,5 +11,12 @@
         <file>MainMenuForm.ui.qml</file>
         <file>Logo.qml</file>
         <file>pictures/paper.jpg</file>
+        <file>MapView.qml</file>
+        <file>GalleryView.qml</file>
+        <file>RestModel.qml</file>
+        <file>pictures/marker.png</file>
+        <file>CheckView.qml</file>
+        <file>TableData.qml</file>
+        <file>CalendarView.qml</file>
     </qresource>
 </RCC>

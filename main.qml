@@ -29,10 +29,8 @@ ApplicationWindow {
              stack.push(signUpView)
             }
             logInButton.onClicked: {
-                //if(!database.match(usernameField.text, passwordField.text)){
-                stack.push(mainMenuView)//}
-               // else{console.log("DURA")}
-           }
+                stack.push(mainMenuView)
+                }
            }
        }
 
@@ -48,11 +46,14 @@ ApplicationWindow {
             calendarButton.onClicked: {
                 stack.push(adventureView)
             }
-            fotoButton.onClicked: {
-            }
+//            fotoButton.onClicked: {
+//                stack.push(galleryView)
+//            }
             mapButton.onClicked: {
+                stack.push(mapView)
             }
             checkButton.onClicked: {
+                stack.push(checkView)
             }
             changeButton.onClicked: {
             }
@@ -61,29 +62,35 @@ ApplicationWindow {
             }
         }
        }
-//       Component{
-//        id: adventureView
-//       }
+       Component{
+        id: adventureView
+        CalendarView{}
+       }
 //       Component{
 //        id: galleryView
+//        GalleryView{}
 //       }
-//       Component{
-//        id: mapView
-//       }
-//       Component{
-//        id: checkView
-//       }
-//       Component{
-//        id: checkView
-//       }
-//       Component{
-//        id: changeView
-//       }
+       Component{
+        id: mapView
+        MapView{}
+       }
+       Component{
+        id: checkView
+        CheckView{
+            addButton.onClicked: {
+                 stack.push(tableDataView)
+            }
+        }
+       }
+       Component{
+        id: tableDataView
+        TableData{}
+       }
 
          Component.onCompleted: stack.push(logInView)
 
          Rectangle {
-            focus: true // important - otherwise we'll get no key events
+            focus: true
 
             Keys.onReleased: {
                 if (event.key == Qt.Key_Back) {

@@ -3,20 +3,20 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>pictures/logo_2.png</file>
-        <file>LogIn.qml</file>
-        <file>LogInForm.ui.qml</file>
-        <file>SignUp.qml</file>
-        <file>SignUpForm.ui.qml</file>
         <file>MainMenu.qml</file>
         <file>MainMenuForm.ui.qml</file>
-        <file>Logo.qml</file>
         <file>pictures/paper.jpg</file>
         <file>MapView.qml</file>
-        <file>GalleryView.qml</file>
         <file>RestModel.qml</file>
         <file>pictures/marker.png</file>
         <file>CheckView.qml</file>
         <file>TableData.qml</file>
         <file>CalendarView.qml</file>
+        <file>pictures/eventindicator.png</file>
+        <file>pictures/back.png</file>
+        <file>pictures/folder.png</file>
+        <file>pictures/menu_icon.png</file>
+        <file>pictures/file.png</file>
+        <file>pictures/resize.png</file>
     </qresource>
 </RCC>

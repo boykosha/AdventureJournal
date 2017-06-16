@@ -10,20 +10,33 @@ Item {
     anchors.left: parent.left
     anchors.top: parent.top
     property alias calendarButton: calendarButton
-    property alias fotoButton: fotoButton
     property alias mapButton: mapButton
     property alias checkButton: checkButton
-    property alias changeButton: changeButton
     property alias signOutButton: signOutButton
 
     Image {
         id: logoImage
-        anchors.fill: parent
-        source: "qrc:/pictures/paper.jpg"
+        fillMode: Image.PreserveAspectFit
+        anchors.right: parent.right
+        anchors.rightMargin: -10
+        anchors.left: parent.left
+        anchors.leftMargin: -10
+        anchors.top: parent.top
+        source: "qrc:/pictures/logo_2.png"
     }
+
     ColumnLayout {
         id: columnLayout
-        anchors.fill: parent
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.top: logoImage.bottom
+
+        Image {
+            id: paperImage
+            anchors.fill: parent
+            source: "qrc:/pictures/paper.jpg"
+        }
 
         Button {
             id: calendarButton
@@ -37,21 +50,10 @@ Item {
         }
 
         Button {
-            id: fotoButton
-            text: qsTr("My gallery")
-            height: 70
-            anchors.top: calendarButton.bottom
-            anchors.topMargin: 10
-            anchors.right: parent.right
-            anchors.left: parent.left
-            font.capitalization: Font.MixedCase
-        }
-
-        Button {
             id: mapButton
             text: qsTr("My routs")
             height: 70
-            anchors.top: fotoButton.bottom
+            anchors.top: calendarButton.bottom
             anchors.topMargin: 10
             anchors.right: parent.right
             anchors.left: parent.left
@@ -71,21 +73,10 @@ Item {
         }
 
         Button {
-            id: changeButton
-            text: qsTr("Settings")
-            height: 70
-            anchors.top: checkButton.bottom
-            anchors.topMargin: 10
-            anchors.right: parent.right
-            anchors.left: parent.left
-            font.capitalization: Font.MixedCase
-        }
-
-        Button {
             id: signOutButton
             text: qsTr("Sign out")
             height: 70
-            anchors.top: changeButton.bottom
+            anchors.top: checkButton.bottom
             anchors.topMargin: 10
             anchors.right: parent.right
             anchors.left: parent.left

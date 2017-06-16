@@ -10,52 +10,23 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.accent: Material.Blue
 
-    Logo{
-        id:logo
-    }
 
     StackView{
         id: stack
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.top: logo.bottom
-        anchors.bottom: parent.bottom
-
+        anchors.fill: parent
     }
-    Component {
-           id: logInView
-           LogIn{
-            signUpButtonMouseArea.onClicked: {
-             stack.push(signUpView)
-            }
-            logInButton.onClicked: {
-                stack.push(mainMenuView)
-                }
-           }
-       }
 
-       Component {
-            id: signUpView
-            SignUp{}
-
-
-       }
        Component{
         id: mainMenuView
         MainMenu{
             calendarButton.onClicked: {
                 stack.push(adventureView)
             }
-//            fotoButton.onClicked: {
-//                stack.push(galleryView)
-//            }
             mapButton.onClicked: {
                 stack.push(mapView)
             }
             checkButton.onClicked: {
                 stack.push(checkView)
-            }
-            changeButton.onClicked: {
             }
             signOutButton.onClicked: {
                 applicationWindow.close();
@@ -66,10 +37,6 @@ ApplicationWindow {
         id: adventureView
         CalendarView{}
        }
-//       Component{
-//        id: galleryView
-//        GalleryView{}
-//       }
        Component{
         id: mapView
         MapView{}
@@ -87,7 +54,7 @@ ApplicationWindow {
         TableData{}
        }
 
-         Component.onCompleted: stack.push(logInView)
+         Component.onCompleted: stack.push(mainMenuView)
 
          Rectangle {
             focus: true

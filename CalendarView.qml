@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Private 1.0
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Dialogs 1.2
+import AdventureJournal 1.0
 
 Item{
     id: calendarView
@@ -11,126 +12,157 @@ Item{
     anchors.left: parent.left
     anchors.top: parent.top
 
-    Calendar {
-        id: calendar
-        anchors.fill: parent
-        frameVisible: true
-        weekNumbersVisible: true
-        selectedDate: new Date()
-        focus: true
+    SqlEventModel {
+        id: eventModel
+    }
 
-        style: CalendarStyle {
-            dayDelegate: Item {
-                readonly property color sameMonthDateTextColor: "#444"
-                readonly property color selectedDateTextColor: "white"
-                readonly property color selectedDateColor: "#87CEEB"
-                readonly property color differentMonthDateTextColor: "#bbb"
-                readonly property color invalidDatecolor: "#dddddd"
+Calendar {
+            id: calendar
+            anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.top: parent.top
+            height: parent.height/2
+            frameVisible: true
+            weekNumbersVisible: true
+            selectedDate: new Date()
+            focus: true
 
-                Rectangle {
-                    anchors.fill: parent
-                    border.color: "transparent"
-                    color: styleData.date !== undefined && styleData.selected ? selectedDateColor : "transparent"
-                    anchors.margins: styleData.selected ? -1 : 0
-                    focus: true
-                    MouseArea{
-                        id: rectangleMouseArea
+            style: CalendarStyle {
+                dayDelegate: Item {
+                    readonly property color sameMonthDateTextColor: "#444"
+                    readonly property color selectedDateTextColor: "white"
+                    readonly property color selectedDateColor: "#87CEFA"
+                    readonly property color differentMonthDateTextColor: "#bbb"
+                    readonly property color invalidDatecolor: "#dddddd"
+
+                    Rectangle {
                         anchors.fill: parent
-                        onClicked: eventDialog.open();
-
+                        border.color: "transparent"
+                        color: styleData.date !== undefined && styleData.selected ? selectedDateColor : "transparent"
+                        anchors.margins: styleData.selected ? -1 : 0
                     }
-                }
 
-                Label {
-                    id: dayDelegateText
-                    text: styleData.date.getDate()
-                    anchors.centerIn: parent
-                    color: {
-                        var color = invalidDatecolor;
-                        if (styleData.valid) {
-                            color = styleData.visibleMonth ? sameMonthDateTextColor : differentMonthDateTextColor;
-                            if (styleData.selected) {
-                                color = selectedDateTextColor;
+                    Image {
+                        visible: eventModel.eventsForDate(styleData.date).length > 0
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.margins: -1
+                        width: 12
+                        height: width
+                        source: "qrc:/pictures/eventindicator.png"
+                    }
+
+                    Label {
+                        id: dayDelegateText
+                        text: styleData.date.getDate()
+                        anchors.centerIn: parent
+                        color: {
+                            var color = invalidDatecolor;
+                            if (styleData.valid) {
+                                // Date is within the valid range.
+                                color = styleData.visibleMonth ? sameMonthDateTextColor : differentMonthDateTextColor;
+                                if (styleData.selected) {
+                                    color = selectedDateTextColor;
+                                }
                             }
+                            color;
                         }
-                        color;
                     }
                 }
-
-
             }
         }
-    }
 
-    Dialog{
-        id: eventDialog
-        contentItem: Rectangle{
-            width: 600
-            height: 500
-            color: "#f7f7f7"
+        Component {
+            id: eventListHeader
 
-            Rectangle {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: dividerHorizontal.top
-                color: "#f7f7f7"  // Задаём цвет области
+            Row {
+                id: eventDateRow
+                width: parent.width
+                height: eventDayLabel.height
+                spacing: 10
 
                 Label {
-                    id: textLabel
-                    text: qsTr("Do you want add new event?")
-                    color: "#34aadc"
-                    anchors.centerIn: parent
-                            }
-                        }
+                    id: eventDayLabel
+                    text: calendar.selectedDate.getDate()
+                    font.pointSize: 35
+                }
 
-                        Rectangle {
-                            id: dividerHorizontal
-                            color: "#87CEEB"
-                            height: 2
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.bottom: row.top
-                        }
+                Column {
+                    height: eventDayLabel.height
 
-                        Row {
-                            id: row
-                            height: 100
-                            anchors.bottom: parent.bottom
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-
-                            Button {
-                                id: dialogButtonCancel
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                width: parent.width / 2 - 1
-                                text: qsTr("Cancel")
-                                onClicked: eventDialog.close()
-                                }
-
-
-
-                            Rectangle {
-                                id: dividerVertical
-                                width: 2
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                color: "#d7d7d7"
-                            }
-
-                            Button {
-                                id: dialogButtonOk
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                width: parent.width / 2 - 1
-                                text: qsTr("Ok")
-                                onClicked: eventDialog.close()
-                            }
-
-
-                        }
+                    Label {
+                        readonly property var options: { weekday: "long" }
+                        text: Qt.locale().standaloneDayName(calendar.selectedDate.getDay(), Locale.LongFormat)
+                        font.pointSize: 18
+                    }
+                    Label {
+                        text: Qt.locale().standaloneMonthName(calendar.selectedDate.getMonth())
+                              + calendar.selectedDate.toLocaleDateString(Qt.locale(), " yyyy")
+                        font.pointSize: 12
+                    }
+                }
+            }
         }
-    }
+
+        Rectangle {
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.left: parent.left
+            height: parent.height/2
+
+
+            ListView {
+                id: eventsListView
+                spacing: 4
+                clip: true
+                header: eventListHeader
+                anchors.fill: parent
+                anchors.margins: 10
+                model: eventModel.eventsForDate(calendar.selectedDate)
+
+                delegate: Rectangle {
+                    width: eventsListView.width
+                    height: eventItemColumn.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    Image {
+                        anchors.top: parent.top
+                        anchors.topMargin: 4
+                        width: 12
+                        height: width
+                        source: "qrc:/pictures/eventindicator.png"
+                    }
+
+                    Rectangle {
+                        width: parent.width
+                        height: 1
+                        color: "#eee"
+                    }
+
+                    Column {
+                        id: eventItemColumn
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
+                        anchors.right: parent.right
+                        height: timeLabel.height + nameLabel.height + 8
+
+                        Label {
+                            id: nameLabel
+                            width: parent.width
+                            wrapMode: Text.Wrap
+                            text: modelData.name
+                        }
+                        Label {
+                            id: timeLabel
+                            width: parent.width
+                            wrapMode: Text.Wrap
+                            text: modelData.startDate.toLocaleTimeString(calendar.locale, Locale.ShortFormat)
+                            color: "#aaa"
+                        }
+                    }
+                }
+            }
+        }
+
 }
 

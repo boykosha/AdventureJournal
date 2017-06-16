@@ -5,6 +5,7 @@
 
 #include "database.h"
 #include "listmodel.h"
+#include "sqleventmodel.h"
 
 
 
@@ -17,6 +18,8 @@ int main(int argc, char *argv[])
     database.connectToDataBase();
 
     ListModel *model = new ListModel();
+
+    qmlRegisterType<SqlEventModel>("AdventureJournal", 1, 0, "SqlEventModel");
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("database", &database);

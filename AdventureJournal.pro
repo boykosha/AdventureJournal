@@ -3,7 +3,9 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     database.cpp \
-    listmodel.cpp
+    listmodel.cpp \
+    event.cpp \
+    sqleventmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,12 +38,19 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    android/gradlew.bat \
+    GroupButtonForm.ui.qml \
+    GpsButtonGroup.qml \
+    GroupButton.qml \
+    RestModel.qml \
+    TrackCharacteristics.qml \
+    Tracker.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
     database.h \
     listmodel.h \
-    listmodel.h
-
+    listmodel.h \
+    event.h \
+    sqleventmodel.h

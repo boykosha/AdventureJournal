@@ -13,10 +13,10 @@
 #define DATABASE_HOSTNAME   "UserDataBase"
 #define DATABASE_NAME       "Check.db"
 
-#define TABLE                   "CheckTable"
+#define TABLE                  "CheckTable"
 #define TABLE_ITEM             "Item"
-#define TABLE_PRICE             "Price"
-#define TABLE_HCURRENCY         "Currency"
+#define TABLE_PRICE            "Price"
+#define TABLE_HCURRENCY        "Currency"
 
 class DataBase: public QObject
 {

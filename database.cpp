@@ -57,12 +57,11 @@ void DataBase::closeDataBase()
 
 bool DataBase::createTable()
 {
-
     QSqlQuery query;
-    if(!query.exec( "CREATE TABLE " TABLE " ("
+    if(!query.exec( "CREATE TABLE " TABLE " ( "
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                            TABLE_ITEM      " VARCHAR(255)    NOT NULL,"
-                            TABLE_PRICE     " VARCHAR(255)    NOT NULL,"
+                            TABLE_ITEM      " VARCHAR(255)    NOT NULL, "
+                            TABLE_PRICE     " VARCHAR(255)    NOT NULL, "
                             TABLE_HCURRENCY " VARCHAR(255)    NOT NULL"
                              " ) "
                     ))
